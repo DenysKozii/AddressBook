@@ -19,11 +19,14 @@ public class CreateRecordServlet extends HttpServlet {
         addressBook = AddressBook.getInstance();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String address = request.getParameter("address");
-        addressBook.create(firstName,lastName,address);
+        if(!addressBook.create(firstName,lastName,address)){
+            request.setAttribute("error","An error occurred! Please, try again!");
+            request.getRequestDispatcher("/WEB-INF/create-record.jsp").forward(request,response);
+        }
         response.sendRedirect("/records/list");
     }
 

@@ -14,6 +14,11 @@
 <%@include file="header.html"%>
 <br><br>
 
+<p>
+    <%if(request.getAttribute("error")!=null){%>
+        <%=request.getAttribute("error")%>
+    <%}%>
+</p>
 <form action="/records/create" method="post">
     <table>
         <tr>
